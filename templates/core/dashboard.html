@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Posto Gestão{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Painel</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Produtos</h5>
+                <p class="card-text fs-2">{{ total_produtos }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Bombas</h5>
+                <p class="card-text fs-2">{{ total_bombas }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Funcionários</h5>
+                <p class="card-text fs-2">{{ total_funcionarios }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Estoque Baixo</h5>
+                <p class="card-text fs-2">{{ estoque_baixo }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <h3>Bem-vindo, {{ user.get_full_name|default:user.username }}!</h3>
+    <p>Utilize o menu lateral para gerenciar as operações do posto.</p>
+</div>
+{% endblock %}

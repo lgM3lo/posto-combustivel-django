@@ -1,0 +1,65 @@
+:root{
+  --app-bg: #0b0f17;
+  --sidebar-bg: #0f1624;
+  --card-bg: rgba(255,255,255,.04);
+  --card-border: rgba(255,255,255,.10);
+  --muted: rgba(255,255,255,.65);
+}
+
+body{
+  background:
+    radial-gradient(1200px 600px at 10% 0%, rgba(13,110,253,.18), transparent 60%),
+    radial-gradient(800px 500px at 90% 10%, rgba(32,201,151,.12), transparent 55%),
+    var(--app-bg);
+}
+
+.app-shell{ min-height: 100vh; }
+
+.sidebar{
+  min-height: 100vh;
+  background: var(--sidebar-bg);
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+
+.sidebar .brand{ font-weight: 700; letter-spacing: .2px; }
+
+.sidebar .nav-link{
+  color: rgba(255,255,255,.72);
+  border-radius: 10px;
+  padding: .55rem .8rem;
+  display: flex;
+  gap: .55rem;
+  align-items: center;
+}
+
+.sidebar .nav-link:hover{
+  background: rgba(255,255,255,.06);
+  color: #fff;
+}
+
+.sidebar .nav-link.active{
+  background: rgba(13,110,253,.18);
+  color: #fff;
+  border: 1px solid rgba(13,110,253,.35);
+}
+
+.content{ padding: 22px; }
+
+.card{
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+}
+
+.table{ --bs-table-bg: transparent; }
+.table thead th{ color: rgba(255,255,255,.8); }
+.table tbody td{ color: rgba(255,255,255,.85); }
+
+.border-bottom{ border-color: rgba(255,255,255,.10)!important; }
+.text-muted{ color: var(--muted)!important; }
+
+.form-control, .form-select{ border-radius: 12px; }
+.btn{ border-radius: 12px; }
+
+.badge{ border-radius: 999px; padding: .45em .65em; font-weight: 600; }
+.badge.bg-warning{ color: #111 !important; }

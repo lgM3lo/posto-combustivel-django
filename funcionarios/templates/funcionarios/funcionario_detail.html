@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Funcionário - {{ funcionario.nome_completo }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <div>
+        <h1 class="h2 mb-0">{{ funcionario.nome_completo }}</h1>
+        <div class="text-muted">CPF: <strong>{{ funcionario.cpf }}</strong> • Cargo: <strong>{{ funcionario.cargo }}</strong></div>
+    </div>
+
+    <div class="btn-toolbar">
+        <a href="{% url 'funcionario_list' %}" class="btn btn-sm btn-outline-secondary">Voltar</a>
+        {% if user.perfil == 'ADMIN' or user.perfil == 'GERENTE' %}
+            <a href="{% url 'funcionario_update' funcionario.pk %}" class="btn btn-sm btn-warning ms-2">Editar</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header"><strong>Dados pessoais</strong></div>
+            <div class="card-body">
+                <p class="mb-2"><strong>RG:</strong> {{ funcionario.rg }}</p>
+                <p class="mb-2"><strong>Data de nascimento:</strong> {{ funcionario.data_nascimento|date:"d/m/Y" }}</p>
+                <p class="mb-2"><strong>Telefone:</strong> {{ funcionario.telefone }}</p>
+                <p class="mb-2"><strong>Email:</strong> {{ funcionario.email }}</p>
+                <p class="mb-0"><strong>Status:</strong>
+                    {% if funcionario.is_active %}
+                        <span class="badge bg-success"><i class="bi bi-check-circle"></i> Ativo</span>
+                    {% else %}
+                        <span class="badge bg-danger"><i class="bi bi-x-circle"></i> Inativo</span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header"><strong>Dados de trabalho</strong></div>
+            <div class="card-body">
+                <p class="mb-2"><strong>Data de admissão:</strong> {{ funcionario.data_admissao|date:"d/m/Y" }}</p>
+                <p class="mb-2"><strong>Tempo de empresa:</strong> {{ funcionario.tempo_empresa }}</p>
+                <p class="mb-2"><strong>Salário:</strong> R$ {{ funcionario.salario }}</p>
+                <p class="mb-0"><strong>Data de cadastro:</strong> {{ funcionario.data_cadastro|date:"d/m/Y H:i" }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header"><strong>Endereço</strong></div>
+            <div class="card-body">
+                <p class="mb-0">
+                    {{ funcionario.logradouro }}, {{ funcionario.numero }}
+                    {% if funcionario.complemento %} - {{ funcionario.complemento }}{% endif %}<br>
+                    {{ funcionario.bairro }} - {{ funcionario.cidade }}/{{ funcionario.estado }}<br>
+                    CEP: {{ funcionario.cep }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

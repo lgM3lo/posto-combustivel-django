@@ -1,0 +1,37 @@
+WARNING 2026-02-15 19:16:39,210 audit LOGIN_FAIL user=operador_inativo ip=None
+WARNING 2026-02-15 19:19:03,847 audit LOGIN_FAIL user=operador_inativo ip=None
+INFO 2026-02-15 19:28:17,476 audit LOGIN_OK user=admin
+INFO 2026-02-15 19:28:17,483 audit LOGIN_OK user=admin ip=127.0.0.1
+WARNING 2026-02-15 19:39:36,772 audit LOGIN_FAIL user=operador_inativo ip=None
+INFO 2026-02-18 20:02:53,713 audit LOGOUT user=admin
+INFO 2026-02-18 20:02:53,714 audit LOGOUT user=admin ip=127.0.0.1
+INFO 2026-02-18 20:25:52,135 audit LOGIN_OK user=admin
+INFO 2026-02-18 20:25:52,144 audit LOGIN_OK user=admin ip=127.0.0.1
+INFO 2026-02-18 20:28:25,356 audit CREATE model=Funcionario id=2 user=admin
+INFO 2026-02-18 20:42:01,981 audit LOGOUT user=admin
+INFO 2026-02-18 20:42:01,982 audit LOGOUT user=admin ip=127.0.0.1
+INFO 2026-02-18 20:42:18,924 audit LOGIN_OK user=admin ip=127.0.0.1
+INFO 2026-02-19 15:04:27,582 audit LOGOUT user=admin
+INFO 2026-02-19 15:04:27,582 audit LOGOUT user=admin ip=127.0.0.1
+INFO 2026-02-19 15:04:29,108 audit LOGIN_OK user=admin
+INFO 2026-02-19 15:04:29,116 audit LOGIN_OK user=admin ip=127.0.0.1
+WARNING 2026-02-19 15:07:46,335 audit LOGIN_FAIL user=operador_inativo ip=None
+INFO 2026-02-19 15:59:33,989 audit LOGOUT user=admin
+INFO 2026-02-19 15:59:33,990 audit LOGOUT user=admin ip=127.0.0.1
+INFO 2026-02-19 16:07:08,042 audit LOGIN_OK user=admin ip=127.0.0.1
+INFO 2026-02-24 16:18:03,558 audit LOGIN_OK user=admin
+INFO 2026-02-24 16:18:03,567 audit LOGIN_OK user=admin ip=127.0.0.1
+INFO 2026-02-24 16:18:50,860 audit UPDATE model=CustomUser id=1 user=admin
+INFO 2026-02-24 16:19:29,171 audit UPDATE model=Bomba id=2 user=admin
+INFO 2026-02-24 16:20:00,775 audit INACTIVATE model=CustomUser id=2 user=admin
+INFO 2026-02-24 16:20:04,722 audit LOGOUT user=admin
+INFO 2026-02-24 16:20:04,722 audit LOGOUT user=admin ip=127.0.0.1
+WARNING 2026-02-24 16:20:07,436 audit LOGIN_FAIL user=OperadorTeste ip=127.0.0.1
+WARNING 2026-02-24 16:20:07,437 audit LOGIN_FAIL_INACTIVE username=OperadorTeste
+INFO 2026-02-24 16:20:17,530 audit LOGIN_OK user=admin
+INFO 2026-02-24 16:20:17,536 audit LOGIN_OK user=admin ip=127.0.0.1
+INFO 2026-02-24 16:20:23,139 audit UPDATE model=CustomUser id=2 user=admin
+INFO 2026-02-24 16:20:34,941 audit LOGOUT user=admin
+INFO 2026-02-24 16:20:34,941 audit LOGOUT user=admin ip=127.0.0.1
+INFO 2026-02-24 17:55:11,324 audit LOGIN_OK user=admin
+INFO 2026-02-24 17:55:11,331 audit LOGIN_OK user=admin ip=127.0.0.1

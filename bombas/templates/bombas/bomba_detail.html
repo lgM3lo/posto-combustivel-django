@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Bomba {{ bomba.numero }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <div>
+        <h1 class="h2 mb-0">Bomba {{ bomba.numero }}</h1>
+        <div class="text-muted">Produto: <strong>{{ bomba.produto.nome }}</strong></div>
+    </div>
+
+    <div class="btn-toolbar">
+        <a href="{% url 'bomba_list' %}" class="btn btn-sm btn-outline-secondary">Voltar</a>
+        {% if user.perfil == 'ADMIN' or user.perfil == 'GERENTE' %}
+            <a href="{% url 'bomba_update' bomba.pk %}" class="btn btn-sm btn-warning ms-2">Editar</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header"><strong>Informações</strong></div>
+            <div class="card-body">
+                <p class="mb-2"><strong>Status:</strong>
+                    {% if bomba.status == 'ATIVA' %}
+                        <span class="badge bg-success"><i class="bi bi-check-circle"></i> {{ bomba.get_status_display }}</span>
+                    {% elif bomba.status == 'MANUTENCAO' %}
+                        <span class="badge bg-danger"><i class="bi bi-exclamation-triangle"></i> {{ bomba.get_status_display }}</span>
+                    {% else %}
+                        <span class="badge bg-secondary"><i class="bi bi-x-circle"></i> {{ bomba.get_status_display }}</span>
+                    {% endif %}
+                </p>
+                <p class="mb-2"><strong>Localização:</strong> {{ bomba.localizacao }}</p>
+                <p class="mb-2"><strong>Data de instalação:</strong> {{ bomba.data_instalacao|date:"d/m/Y" }}</p>
+                <p class="mb-0"><strong>Última manutenção:</strong> {{ bomba.data_ultima_manutencao|date:"d/m/Y"|default:"Não registrada" }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header"><strong>Observações</strong></div>
+            <div class="card-body">
+                {% if bomba.observacoes %}
+                    <p class="mb-0">{{ bomba.observacoes|linebreaksbr }}</p>
+                {% else %}
+                    <p class="text-muted mb-0">Nenhuma observação registrada.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

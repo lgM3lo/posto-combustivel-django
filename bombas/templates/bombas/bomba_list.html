@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block title %}Bombas - Posto Gestão{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Bombas de Combustível</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        {% if request.user.perfil == "ADMIN" or request.user.perfil == "GERENTE" %}
+            <a href="{% url 'bomba_create' %}" class="btn btn-sm btn-outline-primary">Nova Bomba</a>
+        {% endif %}
+    </div>
+</div>
+
+<form method="get" class="mb-4">
+    <div class="row g-2">
+        <div class="col-md-4">
+            <input type="text" name="q" class="form-control" placeholder="Buscar por número ou produto..." value="{{ request.GET.q }}">
+        </div>
+        <div class="col-md-3">
+            <select name="status" class="form-select">
+                <option value="">Todos os status</option>
+                {% for value, label in status_choices %}
+                    <option value="{{ value }}" {% if request.GET.status == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select name="produto" class="form-select">
+                <option value="">Todos os produtos</option>
+                {% for p in produtos %}
+                    <option value="{{ p.id }}" {% if request.GET.produto == p.id|stringformat:"s" %}selected{% endif %}>{{ p.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2 d-grid">
+            <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    {% for bomba in bombas %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100
+            {% if bomba.status == 'MANUTENCAO' %}
+                border-danger bg-danger bg-opacity-25 text-white
+            {% elif bomba.status == 'INATIVA' %}
+                border-danger border-opacity-50 bg-dark text-white
+            {% endif %}
+        ">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="mb-1">Bomba {{ bomba.numero }}</h5>
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle">
+                        {{ bomba.produto.nome }}
+                    </span>
+                </div>
+
+                {% if bomba.status == 'ATIVA' %}
+                    <span class="badge bg-success">
+                        <i class="bi bi-check-circle"></i> {{ bomba.get_status_display }}
+                    </span>
+                {% elif bomba.status == 'MANUTENCAO' %}
+                    <span class="badge bg-danger">
+                        <i class="bi bi-exclamation-triangle"></i> {{ bomba.get_status_display }}
+                    </span>
+                {% else %}
+                    <span class="badge bg-secondary">
+                        <i class="bi bi-x-circle"></i> {{ bomba.get_status_display }}
+                    </span>
+                {% endif %}
+            </div>
+
+            <div class="card-body">
+                <p class="mb-2"><strong>Produto:</strong> {{ bomba.produto.nome }}</p>
+                <p><strong>Localização:</strong> {{ bomba.localizacao }}</p>
+                <p><strong>Última Manutenção:</strong> {{ bomba.data_ultima_manutencao|default:"Não registrada" }}</p>
+            </div>
+
+            <div class="card-footer">
+                <div class="d-grid gap-2">
+                    <a href="{% url 'bomba_detail' bomba.pk %}" class="btn btn-sm btn-info">Ver detalhes</a>
+
+                    {% if user.perfil == 'ADMIN' or user.perfil == 'GERENTE' %}
+                        <a href="{% url 'bomba_update' bomba.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% empty %}
+    <div class="col-12">
+        <div class="text-center py-4">
+            <i class="bi bi-info-circle text-secondary"></i>
+            Nenhuma bomba encontrada.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block pagination %}
+{% if bombas.paginator.num_pages > 1 %}
+<nav aria-label="Navegação de página" class="mt-3">
+  <ul class="pagination justify-content-center flex-wrap">
+
+    {% if bombas.has_previous %}
+      <li class="page-item">
+        <a class="page-link"
+           href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}
+                   {% if request.GET.status %}status={{ request.GET.status }}&{% endif %}
+                   {% if request.GET.produto %}produto={{ request.GET.produto }}&{% endif %}
+                   page={{ bombas.previous_page_number }}">
+          &laquo;
+        </a>
+      </li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+    {% endif %}
+
+    {% for num in bombas.paginator.page_range %}
+      {% if num == bombas.number %}
+        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+      {% else %}
+        <li class="page-item">
+          <a class="page-link"
+             href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}
+                     {% if request.GET.status %}status={{ request.GET.status }}&{% endif %}
+                     {% if request.GET.produto %}produto={{ request.GET.produto }}&{% endif %}
+                     page={{ num }}">
+            {{ num }}
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+
+    {% if bombas.has_next %}
+      <li class="page-item">
+        <a class="page-link"
+           href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}
+                   {% if request.GET.status %}status={{ request.GET.status }}&{% endif %}
+                   {% if request.GET.produto %}produto={{ request.GET.produto }}&{% endif %}
+                   page={{ bombas.next_page_number }}">
+          &raquo;
+        </a>
+      </li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+    {% endif %}
+
+  </ul>
+</nav>
+{% endif %}
+{% endblock %}

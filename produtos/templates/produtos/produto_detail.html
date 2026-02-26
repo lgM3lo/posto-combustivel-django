@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Produto - {{ produto.nome }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <div>
+        <h1 class="h2 mb-0">{{ produto.nome }}</h1>
+        <div class="text-muted">Código: <strong>{{ produto.codigo }}</strong></div>
+    </div>
+
+    <div class="btn-toolbar">
+        <a href="{% url 'produto_list' %}" class="btn btn-sm btn-outline-secondary">Voltar</a>
+        {% if user.perfil == 'ADMIN' or user.perfil == 'GERENTE' %}
+            <a href="{% url 'produto_update' produto.pk %}" class="btn btn-sm btn-warning ms-2">Editar</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <strong>Dados do Produto</strong>
+            </div>
+            <div class="card-body">
+                <p class="mb-2"><strong>Unidade:</strong> {{ produto.unidade_medida }}</p>
+                <p class="mb-2"><strong>Preço de custo:</strong> R$ {{ produto.preco_custo }}</p>
+                <p class="mb-2"><strong>Preço de venda:</strong> R$ {{ produto.preco_venda }}</p>
+                <p class="mb-2"><strong>Estoque atual:</strong> {{ produto.estoque_atual }} {{ produto.unidade_medida }}</p>
+                <p class="mb-2"><strong>Estoque mínimo:</strong> {{ produto.estoque_minimo }} {{ produto.unidade_medida }}</p>
+
+                <p class="mb-0"><strong>Status:</strong>
+                    {% if produto.is_active %}
+                        <span class="badge bg-success"><i class="bi bi-check-circle"></i> Ativo</span>
+                    {% else %}
+                        <span class="badge bg-danger"><i class="bi bi-x-circle"></i> Inativo</span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <strong>Auditoria</strong>
+            </div>
+            <div class="card-body">
+                <p class="mb-2"><strong>Data de cadastro:</strong> {{ produto.data_cadastro|date:"d/m/Y H:i" }}</p>
+                <p class="mb-0"><strong>Última atualização:</strong> {{ produto.data_atualizacao|date:"d/m/Y H:i" }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
