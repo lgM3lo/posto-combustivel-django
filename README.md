@@ -89,8 +89,7 @@ Implementado com **PermissionRequiredMixin**, **UserPassesTestMixin** e mixins p
 - Validação de CNPJ  
 - Exibição dos dados em tela própria  
 
-### ⛽ Produtos
-- CRUD completo  
+### ⛽ Produtos 
 - Filtros e busca  
 - Validação de preço de custo/venda  
 - Estoque mínimo e estoque atual  
@@ -103,7 +102,6 @@ Implementado com **PermissionRequiredMixin**, **UserPassesTestMixin** e mixins p
 - Exibição clara de qual produto está em cada bomba  
 
 ### 👨‍🔧 Funcionários
-- CRUD completo  
 - Validação de CPF  
 - Paginação  
 - Filtros por nome, cargo, status, etc.  
