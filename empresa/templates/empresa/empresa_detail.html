@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Dados da Empresa - Posto Gestão{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Dados da Empresa</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        {% if request.user.perfil == "ADMIN" or request.user.perfil == "GERENTE" %}
+            <a href="{% url 'empresa_update' %}" class="btn btn-sm btn-outline-primary">Editar Dados</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Razão Social:</strong> {{ empresa.razao_social }}</p>
+                <p><strong>Nome Fantasia:</strong> {{ empresa.nome_fantasia }}</p>
+                <p><strong>CNPJ:</strong> {{ empresa.cnpj }}</p>
+                <p><strong>Inscrição Estadual:</strong> {{ empresa.inscricao_estadual }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Telefone:</strong> {{ empresa.telefone }}</p>
+                <p><strong>E-mail:</strong> {{ empresa.email }}</p>
+                <p><strong>CEP:</strong> {{ empresa.cep }}</p>
+                <p><strong>Endereço:</strong> {{ empresa.logradouro }}, {{ empresa.numero }}
+                    {% if empresa.complemento %}- {{ empresa.complemento }}{% endif %}
+                </p>
+                <p><strong>Bairro:</strong> {{ empresa.bairro }}</p>
+                <p><strong>Cidade/UF:</strong> {{ empresa.cidade }} - {{ empresa.estado }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

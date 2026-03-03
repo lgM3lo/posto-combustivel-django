@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Usuário - {{ usuario.username }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <div>
+        <h1 class="h2 mb-0">{{ usuario.nome_completo|default:usuario.get_full_name|default:usuario.username }}</h1>
+        <div class="text-muted">Username: <strong>{{ usuario.username }}</strong> • Perfil: <strong>{{ usuario.get_perfil_display }}</strong></div>
+    </div>
+
+    <div class="btn-toolbar">
+        <a href="{% url 'user_list' %}" class="btn btn-sm btn-outline-secondary">Voltar</a>
+        <a href="{% url 'user_update' usuario.pk %}" class="btn btn-sm btn-warning ms-2">Editar</a>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header"><strong>Dados</strong></div>
+            <div class="card-body">
+                <p class="mb-2"><strong>Nome completo:</strong> {{ usuario.nome_completo|default:"-" }}</p>
+                <p class="mb-2"><strong>E-mail:</strong> {{ usuario.email|default:"-" }}</p>
+                <p class="mb-2"><strong>Perfil:</strong> {{ usuario.get_perfil_display }}</p>
+                <p class="mb-0"><strong>Status:</strong>
+                    {% if usuario.is_active %}
+                        <span class="badge bg-success"><i class="bi bi-check-circle"></i> Ativo</span>
+                    {% else %}
+                        <span class="badge bg-danger"><i class="bi bi-x-circle"></i> Inativo</span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header"><strong>Cadastro</strong></div>
+            <div class="card-body">
+                <p class="mb-2"><strong>Data de cadastro:</strong> {{ usuario.data_cadastro|date:"d/m/Y H:i" }}</p>
+                <p class="mb-0"><strong>Último login:</strong> {{ usuario.last_login|date:"d/m/Y H:i"|default:"Nunca" }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
